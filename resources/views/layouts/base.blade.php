@@ -4,12 +4,10 @@
     <title>Dropzone @yield('title')</title>
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
-
-    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css" type="text/css" />
     
-    <link href="{{ asset('css/cuadro.css') }}" rel="stylesheet">
-    
+    <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/cuadro.css') }} ">
+       
 </head>
 <body>
     
@@ -22,7 +20,9 @@
 </body>
 </html>
 
-
+<script src="{{ asset('js/dropzone.min.js') }}"></script>
 <script type="text/javascript">
-    @yield('script')
+    
+    @yield('js')
+    
 </script>

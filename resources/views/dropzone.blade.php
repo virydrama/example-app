@@ -9,9 +9,13 @@
         <div>
         </div>
     </form>
+
+    <div class="my-3 ">
+        <button type="submit" class="btn btn-primary btn-lg w-100">Create</button>
+    </div>
 @endsection
 
-@section('script')
+@section('js')
   
     Dropzone.autoDiscover = false;
     
@@ -21,12 +25,26 @@
         maxFiles: 1,
         acceptedFiles: ".jpeg,.jpg,.pdf,.wav",
         addRemoveLinks: true,
-        dictRemoveFile: "Eliminar",
+        dictRemoveFile: "Eliminar"
 
         /*init:function(){
             var
         }*/
+
     });
+
+    /*const dropzone = $("$image-upload").dropzone({
+        uploadprogress: function(file, progress, byteSent) {
+            $("button[type=submit]").prop('disabled',true);
+        },
+        thumbnailWidth: 120,
+        dictDefaultMessage: "Arrastre los archivos aquí",
+        maxFiles: 1,
+        acceptedFiles: ".jpeg,.jpg,.pdf,.wav",
+        addRemoveLinks: true,
+        dictRemoveFile: "Eliminar"
+
+    });*/
 
 
     
