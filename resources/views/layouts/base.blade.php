@@ -7,7 +7,8 @@
     
     <link rel="stylesheet" href="{{ asset('css/dropzone.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cuadro.css') }} ">
-       
+    
+    
 </head>
 <body>
     
@@ -21,6 +22,7 @@
 </html>
 
 <script src="{{ asset('js/dropzone.min.js') }}"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <script type="text/javascript">
     
     @yield('js')

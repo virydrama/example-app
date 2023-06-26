@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DropzoneController;
+use App\Http\Controllers\FilepondController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,4 +28,9 @@ Route::get('/', function () {
 Route::controller(DropzoneController::class)->group(function(){
     Route::get('dropzone', 'index');
     Route::post('dropzone/store', 'store')->name('dropzone.store');
+});
+
+Route::controller(FilepondController::class)->group(function(){
+    Route::get('filepond', 'index');
+    //Route::post('filepond/store', 'store')->name('filepond.store');
 });
