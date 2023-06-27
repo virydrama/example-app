@@ -12,11 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('archivos', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('nombre');
-            $table->string('tipo');
-            $table->string('peso');
-            $table->string('url');
             $table->timestamps();
         });
     }

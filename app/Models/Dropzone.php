@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Dropzone extends Model
 {
     use HasFactory;
+
+    protected $table = 'archivos';
 }

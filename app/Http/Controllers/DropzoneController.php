@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+//use App\Models\Archivos;
 use App\Models\Dropzone;
 use Illuminate\Http\Request;
 
@@ -28,17 +29,38 @@ class DropzoneController extends Controller
      */
     public function store(Request $request)
     {
-        $image = $request->file('file');
+        $files = $request->file('file');
+        foreach($files as $file){
+            $fileName = $file->getClientOriginalName();
+            $file->move(public_path('images'), $fileName);
 
-        $imageName = $request->file('file')->getClientOriginalName();
-        
-        $image->move(public_path('images'),$imageName);
+            /*$dropzone = new Dropzone;
+            $dropzone->nombre = $fileName;
+            $dropzone->save();
+            //return response()->json(['success'=>$filename]);*/
+        }
+
+
+
+        /*$image = $request->file('file');
+
+        $imageName = $image->getClientOriginalName();
+        $filename = pathinfo($imageName, PATHINFO_FILENAME);
+        $extension = pathinfo($imageName, PATHINFO_EXTENSION);
+        $file_name= $filename.'.'.$extension;
+        $image->move(public_path('images'),$file_name);*/
+
+        /*$imageUpload = new Archivos;
+        $imageUpload->nombre = $filename;
+        //$imageUpload->nombre = $file_name;
+        $imageUpload->save();
+        return response()->json(['success'=>$filename]);*/
      
-        return response()->json(['success'=>$imageName]);
+        //return response()->json(['success'=>$imageName]);
 
         //$image = $request->file('file');
         
-        //$image->move('images');
+        //$image->move('images');*/
     
     }
 
@@ -71,6 +93,7 @@ class DropzoneController extends Controller
      */
     public function destroy(Dropzone $dropzone)
     {
-        //
-    }
+        //$filename =  $request->get('filename');
+        dd("destroy");
+    }    
 }
