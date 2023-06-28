@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use App\Models\Archivos;
+//use App\Models\Archivo;
 use App\Models\Dropzone;
 use Illuminate\Http\Request;
 
@@ -32,12 +32,15 @@ class DropzoneController extends Controller
         $files = $request->file('file');
         foreach($files as $file){
             $fileName = $file->getClientOriginalName();
+            //dd($fileName);
             $file->move(public_path('images'), $fileName);
 
-            /*$dropzone = new Dropzone;
+            $dropzone = new Dropzone;
+            
             $dropzone->nombre = $fileName;
+            
             $dropzone->save();
-            //return response()->json(['success'=>$filename]);*/
+            //return response()->json(['success'=>$filename]);
         }
 
 
@@ -45,10 +48,11 @@ class DropzoneController extends Controller
         /*$image = $request->file('file');
 
         $imageName = $image->getClientOriginalName();
+        dd($image);
         $filename = pathinfo($imageName, PATHINFO_FILENAME);
         $extension = pathinfo($imageName, PATHINFO_EXTENSION);
         $file_name= $filename.'.'.$extension;
-        $image->move(public_path('images'),$file_name);*/
+        $image->move(public_path('images'),$file_name);
 
         /*$imageUpload = new Archivos;
         $imageUpload->nombre = $filename;
@@ -91,9 +95,15 @@ class DropzoneController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dropzone $dropzone)
+    public function destroy(Request $request)
     {
-        //$filename =  $request->get('filename');
-        dd("destroy");
+        $filename =  $request->get('filename');
+        //dd("aqui");
+        Dropzone::where('nombre',$filename)->delete();
+        $path = public_path('images/').$filename;
+        if (file_exists($path)) {
+            unlink($path);
+        }
+        return response()->json(['success'=>$filename]);
     }    
 }

@@ -5,7 +5,7 @@
 @section('content')
 <header class="bg-white shadow">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dropzone</h1>
+      <h1 class="text-3xl font-semibold tracking-tight text-gray-900">Dropzone</h1>
     </div>
 </header>
 <main>
@@ -13,9 +13,6 @@
         <form action="{{ route('dropzone.store') }}" method="post" enctype="multipart/form-data" id="dropzone" class="dropzone">
             @csrf
         </form>
-       
-    </div>
-    <div>
         <button type="submit" id="submit" class="sm:mx-auto sm:w-sm sm:max-w-sm justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Guardar</button>
     </div>
 </main>
@@ -37,7 +34,8 @@
     Dropzone.options.dropzone = {
         autoProcessQueue: false,
         uploadMultiple: true,
-        thumbnailWidth: 120,
+        thumbnailWidth: 200,
+        maxFiles: 1,
         dictDefaultMessage: "Arrastre los archivos aquí",
         acceptedFiles: ".jpeg,.jpg,.pdf,.wav",
         addRemoveLinks: true,
@@ -59,20 +57,32 @@
         },
         removedfile: function(file) {
             if (this.options.dictRemoveFile) {
-                //return Dropzone.confirm("Etás seguro que deseas eliminar "+this.options.dictRemoveFile, function() {
-					if(file.previewElement.id != ""){
+                return Dropzone.confirm("Etás seguro que deseas eliminar "+this.options.dictRemoveFile, function() {
+					
+                    if(file.previewElement.id != ""){
 						var name = file.previewElement.id;
 					}else{
 						var name = file.name;
 					}
-					console.log(name);
+					//console.log(name);
 
-                    
+                    $.ajax({
+						headers: {
+							  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+							  },
+                              type: 'POST',
+                              url: '{{ url("dropzone/delete") }}',
+                              data: {filename: name},
+                              success: function (data){
+                                  alert(data.success +" File has been successfully removed!");
+                              }      
+
+                    });          
 				   
 
-                //});    
+                });    
             }
-        }    
+        } 
     };
     
     /*var dropzone = new Dropzone('#image-upload', {

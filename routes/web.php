@@ -28,7 +28,7 @@ Route::get('/', function () {
 Route::controller(DropzoneController::class)->group(function(){
     Route::get('dropzone', 'index');
     Route::post('dropzone/store', 'store')->name('dropzone.store');
-    //Route::post('destroy', 'destroy')->name('dropzone.destroy');
+    Route::post('dropzone/delete', 'destroy')->name('dropzone.destroy');
 });
 
 Route::controller(FilepondController::class)->group(function(){
