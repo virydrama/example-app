@@ -1,5 +1,5 @@
 .dropzone {
-	border: 2px dashed #028AF4 !important;
+	border: 2px dashed rgb(199 210 254) !important;
     width: 70%;
     margin: auto;
 }
