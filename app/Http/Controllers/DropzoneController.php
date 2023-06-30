@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 //use App\Models\Archivo;
 use App\Models\Dropzone;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class DropzoneController extends Controller
 {
@@ -31,14 +32,25 @@ class DropzoneController extends Controller
     {
         $files = $request->file('file');
         foreach($files as $file){
+            
             $fileName = $file->getClientOriginalName();
-            //dd($fileName);
-            $file->move(public_path('images'), $fileName);
+            $extension = $file->extension();
+            $imageSize = $file->getSize();
+
+            $size = number_format($imageSize / 1048576,2).' MB';
+            //dd($size);
+            $path = public_path('images');
+            //dd($path);
+            $file->move($path, $fileName);
+            $ruta = 'hernandez'.'diaz'.'jose_roberto/'.$fileName;
 
             $dropzone = new Dropzone;
-            
             $dropzone->nombre = $fileName;
-            
+            $dropzone->tipo = $extension;
+            $dropzone->peso = $size;
+            $dropzone->url = $ruta;
+
+           
             $dropzone->save();
             //return response()->json(['success'=>$filename]);
         }
