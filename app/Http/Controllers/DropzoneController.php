@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Models\Dropzone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class DropzoneController extends Controller
 {
@@ -39,16 +40,19 @@ class DropzoneController extends Controller
 
             $size = number_format($imageSize / 1048576,2).' MB';
             //dd($size);
-            $path = public_path('images');
+            $nombre = 'nombre_completo';
+            $path = public_path('uploads/cp/'.$nombre);
             //dd($path);
+            if(!File::exists($path)){
+                File::makeDirectory($path, 0777, true);
+            }
             $file->move($path, $fileName);
-            $ruta = 'hernandez'.'diaz'.'jose_roberto/'.$fileName;
 
             $dropzone = new Dropzone;
             $dropzone->nombre = $fileName;
             $dropzone->tipo = $extension;
             $dropzone->peso = $size;
-            $dropzone->url = $ruta;
+            $dropzone->url = $path;
 
            
             $dropzone->save();
@@ -110,9 +114,10 @@ class DropzoneController extends Controller
     public function destroy(Request $request)
     {
         $filename =  $request->get('filename');
-        //dd("aqui");
+        //dd($filename);
+        $nombre = 'nombre_completo';
         Dropzone::where('nombre',$filename)->delete();
-        $path = public_path('images/').$filename;
+        $path = public_path('uploads/cp/').$nombre.'/'.$filename;
         if (file_exists($path)) {
             unlink($path);
         }
