@@ -31,9 +31,12 @@ class DropzoneController extends Controller
      */
     public function store(Request $request)
     {
+        
+        $nombre = $request->nombre;
+        //dd($nombre);
         $files = $request->file('file');
         foreach($files as $file){
-            
+           //dd($file); 
             $fileName = $file->getClientOriginalName();
             $extension = $file->extension();
             $imageSize = $file->getSize();
@@ -57,32 +60,9 @@ class DropzoneController extends Controller
            
             $dropzone->save();
             //return response()->json(['success'=>$filename]);
-        }
-
-
-
-        /*$image = $request->file('file');
-
-        $imageName = $image->getClientOriginalName();
-        dd($image);
-        $filename = pathinfo($imageName, PATHINFO_FILENAME);
-        $extension = pathinfo($imageName, PATHINFO_EXTENSION);
-        $file_name= $filename.'.'.$extension;
-        $image->move(public_path('images'),$file_name);
-
-        /*$imageUpload = new Archivos;
-        $imageUpload->nombre = $filename;
-        //$imageUpload->nombre = $file_name;
-        $imageUpload->save();
-        return response()->json(['success'=>$filename]);*/
-     
-        //return response()->json(['success'=>$imageName]);
-
-        //$image = $request->file('file');
-        
-        //$image->move('images');*/
     
-    }
+        }
+    }    
 
     /**
      * Display the specified resource.
